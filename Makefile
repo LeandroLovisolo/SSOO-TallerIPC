@@ -1,13 +1,28 @@
 .PHONY: all clean
 
+# CFLAGS += -std=c99
+
 OBJ = $(CC) $(CFLAGS) -c
 
 BIN = $(CC) $(CFLAGS) -o $@
 
 BIN_OBJS = $(CC) $(CFLAGS) $^ -o $@
 
-all: bin/mt_server bin/cliente bin/display bin/display2 \
+all: bin/p1_server bin/p1_client bin/p2_server bin/p2_client \
+	 bin/mt_server bin/cliente bin/display bin/display2 \
 	 bin/display2_nonblocking bin/display2_select bin/pipe 
+
+bin/p1_server: p1/mt.h p1/server.c
+	$(BIN) p1/server.c
+
+bin/p1_client: p1/mt.h p1/client.c
+	$(BIN) p1/client.c
+
+bin/p2_server: p2/mt.h p2/server.c
+	$(BIN) p2/server.c
+
+bin/p2_client: p2/mt.h p2/client.c
+	$(BIN) p2/client.c
 
 bin/mt_server: mini-telnet/mt.h mini-telnet/mt_server.c
 	$(BIN) mini-telnet/mt_server.c
@@ -31,4 +46,4 @@ bin/pipe: pipe/pipe.c
 	$(BIN) pipe/pipe.c
 
 clean:
-	rm bin/*
+	rm -f bin/*
