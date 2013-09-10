@@ -1,0 +1,6 @@
+# Binarios
+bin/*
+
+# Sublime Text
+*.sublime-project
+*.sublime-workspace
