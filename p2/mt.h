@@ -9,7 +9,7 @@
 #include <errno.h>
 #include <stdlib.h>
 #include <string.h>
-#define PORT 5555
+#define PORT 5556
 #define MAX_MSG_LENGTH 1024
 #define END_STRING "chau\n"
 #define COMPLETE_STRING "fin-respuesta"
