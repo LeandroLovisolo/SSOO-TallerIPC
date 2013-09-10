@@ -16,10 +16,14 @@ int ejecutar(char *comando, char *output, int output_size) {
         /* Se cierra el socket de escritura porque no lo usamos en el padre. */
         close(pipes[1]);
 
-        /* Leemos los datos que manda el hijo desde el pipe. */
-        if (read(pipes[0], output, output_size) < 0) {
-            perror("leyendo datos");
-            return -1;
+        /* Leemos los datos que manda el hijo desde el pipe hasta */
+        /* terminar de leer todo o hasta que se termine el buffer. */
+        int n = 0;
+        int res;
+        while((res = read(pipes[0], output + n, output_size - n)) > 0 &&
+              n + res < output_size) {
+            output[n + res] = 0;
+            n += res;
         }
 
         /* Cerramos el pipe de lectura. */
